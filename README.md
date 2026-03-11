@@ -2,11 +2,27 @@
 
 Command line tool to import a local folder to a Nuxeo Platform instance.
 
+## Prerequisites
+
+- Node.js **v16** or higher
+- npm (comes with Node.js)
+
+---
+
 ## Installation
 
-    $ npm install -g nuxeo-sandbox/nuxeo-node-importer
+Since this module is not yet published on npm, you can install it locally:
 
-This module is not yet published on npm.
+```bash
+# Clone the repository
+$ git clone https://github.com/qualitified/nuxeo-node-importer.git
+$ cd nuxeo-node-importer
+
+# Install globally
+$ npm install -g .
+```
+This will make the nuxeo-importer command available globally.
+
 
 ## Usage
 
