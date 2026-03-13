@@ -9,6 +9,39 @@ Command line tool to import a local folder to a Nuxeo Platform instance.
 
 ---
 
+## Node 18+ Compatibility Fix
+
+If you encounter this error when running with Node 18+:
+
+```
+RequestInit: duplex option is required when sending a body.
+```
+
+This is caused by Node's native `fetch` API conflicting with the older `isomorphic-fetch` library. To fix it, patch `node_modules/isomorphic-fetch/fetch-npm-node.js`:
+
+**Change this:**
+```javascript
+if (!global.fetch) {
+    global.fetch = module.exports;
+    // ...
+}
+```
+
+**To this:**
+```javascript
+// Always override global.fetch (fixes Node 18+ native fetch duplex issue)
+global.fetch = module.exports;
+global.Response = realFetch.Response;
+global.Headers = realFetch.Headers;
+global.Request = realFetch.Request;
+```
+
+This forces the use of `node-fetch` instead of Node's native fetch.
+
+> **Note:** This patch will be overwritten if you run `npm install`. Re-apply it after reinstalling dependencies.
+
+---
+
 ## Installation
 
 Since this module is not yet published on npm, you can install it locally:
